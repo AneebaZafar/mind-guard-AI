@@ -1,0 +1,172 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('/static/bg.jpg') no-repeat center center fixed; /* Your chosen background image */
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9); /* semi-transparent for readability */
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 800px;
+    margin: 50px auto;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+h1, h2 {
+    font-weight: 600;
+    color: #222;
+}
+
+textarea {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    resize: none;
+}
+
+button, .btn {
+    padding: 12px 25px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background-color: #6C63FF;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #5848c2;
+}
+
+.btn-success {
+    background-color: #00C49A;
+    color: #fff;
+}
+
+.btn-success:hover {
+    background-color: #009f7a;
+}
+
+.btn-secondary {
+    background-color: #aaa;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #888;
+}
+
+.card {
+    background-color: rgba(255,255,255,0.95);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+}
+
+.badge {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 12px;
+}
+
+img {
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+}
+
+ul.list-group li {
+    margin-bottom: 10px;
+    border-radius: 12px;
+}
+
+.lead {
+    font-size: 1.2rem;
+    color: #444;
+}
+
+body.homepage {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* full viewport height */
+    background: url('/static/bg.jpg') no-repeat center center fixed; /* your image */
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff; /* text color */
+}
+
+.home-content {
+    text-align: center;
+    background-color: rgba(239, 239, 243, 0.5); /* semi-transparent overlay for readability */
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+}
+
+.home-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.home-content p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+.home-content .btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    margin: 5px;
+    transition: 0.3s;
+}
+
+.home-content .btn-primary {
+    background-color: #6C63FF;
+    border: none;
+}
+
+.home-content .btn-primary:hover {
+    background-color: #5848c2;
+}
+
+.home-content .btn-success {
+    background-color: #00C49A;
+    border: none;
+}
+
+.home-content .btn-success:hover {
+    background-color: #009f7a;
+}
+
+.custom-card {
+    background-color: rgba(173, 216, 230, 0.5); /* semi-transparent white */
+    backdrop-filter: blur(5px); /* optional: soft blur for transparency effect */
+}
+
+.card-gradient {
+    background-color: rgba(240, 248, 255, 0.6);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    color: #333; /* ensures text is readable */
+    padding: 20px;
+    backdrop-filter: blur(4px); /* optional, softens the gradient */
+}

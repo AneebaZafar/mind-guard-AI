@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Write Mood Entry</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h2 class="mb-4">📝 Write Your Mood Entry</h2>
+    <div class="card p-4 shadow-sm">
+        <form method="POST">
+            <!-- Text Entry -->
+            <div class="mb-3">
+                <textarea id="mood_text" class="form-control form-control-lg" name="mood_text" rows="5" placeholder="How are you feeling today?" required></textarea>
+            </div>
+
+            <!-- Voice Input -->
+            <div class="mb-3">
+                <button type="button" id="recordBtn" class="btn btn-secondary">🎤 Record Voice</button>
+                <span id="voiceStatus" class="ms-2 text-muted">Not recording</span>
+            </div>
+
+            <!-- Emoji / Mood Rating -->
+            <div class="mb-3">
+                <label for="mood_rating" class="form-label">How are you feeling right now?</label>
+                <select class="form-select form-select-lg" id="mood_rating" name="mood_rating" required>
+                    <option value="😄">😄 Very Happy</option>
+                    <option value="🙂">🙂 Happy</option>
+                    <option value="😐">😐 Neutral</option>
+                    <option value="😔">😔 Sad</option>
+                    <option value="😢">😢 Very Sad</option>
+                    <option value="😡">😡 Angry</option>
+                    <option value="😨">😨 Anxious</option>
+                </select>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            <a href="/" class="btn btn-secondary btn-lg ms-2">Back Home</a>
+        </form>
+    </div>
+</div>
+
+<!-- Voice Input & Auto-Emoji Script -->
+<script>
+let recognizing = false;
+let recognition;
+
+if ('webkitSpeechRecognition' in window) {
+    recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = function() {
+        recognizing = true;
+        document.getElementById('recordBtn').innerText = '🛑 Stop Recording';
+        document.getElementById('recordBtn').classList.replace('btn-secondary', 'btn-danger');
+        document.getElementById('voiceStatus').innerText = 'Recording...';
+    };
+
+    recognition.onerror = function(event) {
+        console.error(event.error);
+        recognizing = false;
+        document.getElementById('recordBtn').innerText = '🎤 Record Voice';
+        document.getElementById('recordBtn').classList.replace('btn-danger', 'btn-secondary');
+        document.getElementById('voiceStatus').innerText = 'Error occurred';
+    };
+
+    recognition.onend = function() {
+        recognizing = false;
+        document.getElementById('recordBtn').innerText = '🎤 Record Voice';
+        document.getElementById('recordBtn').classList.replace('btn-danger', 'btn-secondary');
+        document.getElementById('voiceStatus').innerText = 'Not recording';
+    };
+
+    recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('mood_text').value = transcript;
+
+        // --- Auto-select emoji based on keywords ---
+        const text = transcript.toLowerCase();
+        let selectedEmoji = "😐"; // default neutral
+
+        if (text.includes("happy") || text.includes("great") || text.includes("joy") || text.includes("good") || text.includes("excited")) {
+            selectedEmoji = "😄";
+        } else if (text.includes("sad") || text.includes("tired") || text.includes("down") || text.includes("unhappy")) {
+            selectedEmoji = "😔";
+        } else if (text.includes("very sad") || text.includes("depressed") || text.includes("cry")) {
+            selectedEmoji = "😢";
+        } else if (text.includes("angry") || text.includes("mad") || text.includes("frustrated")) {
+            selectedEmoji = "😡";
+        } else if (text.includes("anxious") || text.includes("nervous") || text.includes("worried")) {
+            selectedEmoji = "😨";
+        } else if (text.includes("ok") || text.includes("neutral")) {
+            selectedEmoji = "😐";
+        } else if (text.includes("smile") || text.includes("fun")) {
+            selectedEmoji = "🙂";
+        }
+
+        document.getElementById('mood_rating').value = selectedEmoji;
+    };
+}
+
+document.getElementById('recordBtn').addEventListener('click', () => {
+    if (recognizing) {
+        recognition.stop();
+    } else {
+        recognition.start();
+    }
+});
+</script>
+</body>
+</html>

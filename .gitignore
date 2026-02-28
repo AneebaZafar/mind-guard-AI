@@ -1,0 +1,7 @@
+"nltk_data/" 
+"__pycache__/" 
+"venv/" 
+"*.pyc" 
+"*.pyo" 
+"*.sqlite3" 
+".DS_Store" 

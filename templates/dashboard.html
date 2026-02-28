@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Mood Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h2 class="mb-4">📈 Your Mood Dashboard</h2>
+
+    <!-- 🔥 Streak Card -->
+    <div class="card p-3 mb-4 shadow-sm text-center">
+        <h4>🔥 Current Streak</h4>
+        <h2>{{ streak }} Day{% if streak != 1 %}s{% endif %}</h2>
+    </div>
+
+    {% if alert_msg %}
+    <div class="card p-3 mb-4 shadow-sm text-center bg-warning text-dark">
+        <h5>📢 Mood Alert</h5>
+        <p>{{ alert_msg }}</p>
+    </div>
+    {% endif %}
+
+    <div class="card p-3 mb-4 shadow-sm">
+    <h4>📅 Weekly Insight Report</h4>
+    <pre>{{ insight_summary }}</pre>
+    </div>
+
+    <!-- Mood Trend Graph -->
+    <div class="card p-3 mb-4 shadow-sm">
+        <h5>Mood Trend Over Time</h5>
+        {% if entries %}
+            <img src="{{ url_for('static', filename='mood_trend.png') }}" class="img-fluid mt-2">
+        {% else %}
+            <p class="text-muted">No entries yet. Start tracking your mood!</p>
+        {% endif %}
+    </div>
+    
+    <!-- Most Frequent Emotions -->
+    <div class="card p-3 mb-4 shadow-sm">
+        <h5>Most Frequent Emotions</h5>
+        {% if entries %}
+            <img src="{{ url_for('static', filename='emotions_trend.png') }}" class="img-fluid mt-2">
+        {% else %}
+            <p class="text-muted">No entries yet. Start tracking your mood!</p>
+        {% endif %}
+    </div>
+
+    <!-- Past Entries -->
+    <div class="card p-3 mb-4 shadow-sm">
+        <h5>Past Entries</h5>
+        {% if entries %}
+        <ul class="list-group mt-2">
+            {% for e in entries %}
+                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <div>
+                        <strong>{{ e[3] }}:</strong> {{ e[0] }} <!-- timestamp : text -->
+                        {% for emo in e[2].split(',') %}
+                            <span class="badge bg-info text-dark ms-1">{{ emo }}</span>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <span class="badge 
+                            {% if e[1] == 'Positive' %}bg-success
+                            {% elif e[1] == 'Negative' %}bg-danger
+                            {% else %}bg-warning text-dark{% endif %}">
+                            {{ e[1] }}
+                        </span>
+                        <span style="font-size: 1.5rem; margin-left: 8px;">{{ e[4] }}</span> <!-- emoji mood rating -->
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p class="text-muted">No entries yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- Disclaimer -->
+    <p class="text-muted mt-3"><em>Disclaimer: This app is not a substitute for professional mental health support.</em></p>
+
+    <a href="/entry" class="btn btn-primary mt-3">New Entry</a>
+</div>
+<div class="mb-4">
+   <a href="{{ url_for('export_csv') }}" class="btn btn-primary mt-3">Export CSV</a>
+  
+   
+</div>
+</body>
+</html>
