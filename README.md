@@ -71,3 +71,13 @@ This project is made for educational and hackathon purposes.
 ---
 
 ## 📂 Project Structure
+mind-guard-AI/
+│
+├─ app.py # Main Flask application
+├─ insert_test_entries.py # Optional script to insert dummy data
+├─ mindguard.db # SQLite database (auto-generated)
+├─ nltk_data/ # NLTK data for NLP
+├─ static/ # Static files (CSS, images, fonts)
+│ └─ cards/ # Generated mood cards
+├─ templates/ # HTML templates
+└─ README.md # Project documentation
